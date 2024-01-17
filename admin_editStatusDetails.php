@@ -107,8 +107,7 @@ if (isset($_SESSION["UID"])) {
 
                     <label for="artist">Artist/Band Name: <?php echo $baris['Artist_BandName'] ?></label>
 
-                    <label for="audioVideo">Audio OR Video of the song: <a
-                                href="<?php echo $baris['Audio_Video']; ?>" target="_blank">Visit Link</a></label>
+                    <label for="audioVideo">Audio OR Video of the song: <a href="<?php echo $baris['Audio_Video']; ?>" target="_blank">Visit Link</a></label>
 
                     <label for="genre">Genre: <?php echo $baris['Genre'] ?></label>
 

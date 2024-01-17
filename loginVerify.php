@@ -20,7 +20,7 @@ if ($link->connect_error) {
         echo "<br>Click <a href='login.html'> here </a> to log-in again"; 
     } else { 
         $row = $resultCheck->fetch_assoc(); 
-        $UserStatus = $row["UserStatus"]; // Assuming there is a 'UserStatus' column in your USERS table 
+        $UserStatus = $row["UserStatus"]; 
  
         if ($UserStatus === 'Blocked') { 
             // Redirect to the blocked page 

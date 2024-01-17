@@ -67,56 +67,52 @@ if (isset($_SESSION["UID"])) {
     <form action="song_editSave.php" name="UpdateForm" method="POST">
         <h3>Song Update Save!</h3>
 
-        <?php
-        $Song_Id = $_POST["Song_Id"];
-        $Title = $_POST["Title"];
-        $Artist_BandName = $_POST["Artist_BandName"];
-        $Audio_Video = $_POST["Audio_Video"];
-        $Genre = $_POST["Genre"];
-        $Language = $_POST["Language"];
-        $ReleaseDate = $_POST["ReleaseDate"];
+           <?php
+    $Song_Id = $_POST["Song_Id"];
+    $Title = $_POST["Title"];
+    $Artist_BandName = $_POST["Artist_BandName"];
+    $Audio_Video = $_POST["Audio_Video"];
+    $Genre = $_POST["Genre"];
+    $Language = $_POST["Language"];
+    $ReleaseDate = $_POST["ReleaseDate"];
 
-        $host = "localhost";
-        $user = "root";
-        $pass = "";
-        $db = "songs_collection_system";
+    $host = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "songs_collection_system";
 
-        $conn = new mysqli($host, $user, $pass, $db);
+    $conn = new mysqli($host, $user, $pass, $db);
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    } 
+    else
+    {
+        $queryUpdate = "UPDATE song SET
+            Title = '".$Title."', Artist_BandName = '".$Artist_BandName."',
+            Audio_Video = '".$Audio_Video."', Genre = '".$Genre."',
+            Language = '".$Language."', ReleaseDate = '".$ReleaseDate."'
+            WHERE Song_Id = '".$Song_Id."' ";
+
+        if ($conn->query($queryUpdate) === TRUE) {
+            echo "Success update data";
+            echo "<br><br>";
+            echo "Click <a href='viewSong.php'> here </a> to view song list ";
         } else {
-            // Use prepared statement to avoid SQL injection
-            $queryUpdate = $conn->prepare("UPDATE song SET
-                Title = ?, Artist_BandName = ?,
-                Audio_Video = ?, Genre = ?,
-                Language = ?, ReleaseDate = ?
-                WHERE Song_Id = ?");
-
-            $queryUpdate->bind_param("ssssssi", $Title, $Artist_BandName, $Audio_Video, $Genre, $Language, $ReleaseDate, $Song_Id);
-
-            if ($queryUpdate->execute()) {
-                echo "Success update data";
-                echo "<br><br>";
-                echo "Click <a href='viewSong.php'> here </a> to view the song list ";
-            } else {
-                echo "Error updating record: " . $conn->error;
-            }
-
-            $queryUpdate->close();
+            echo "Error updating record: " . $conn->error;
         }
-        $conn->close();
-        ?>
-
-    </form>
-
+    }
+    $conn->close();
+    ?>
 </body>
-
 </html>
 
 <?php
-} else {
-    echo "No session exists or session has expired. Please log in again.<br>";
-    echo "<a href=login.html> Login </a>";
+}
+else
+{
+echo "No session exists or session has expired. Please
+log in again.<br>";
+echo "<a href=login.html> Login </a>";
 }
 ?>

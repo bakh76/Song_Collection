@@ -84,7 +84,7 @@ if(isset($_SESSION["UID"])) {
 <div class="song-list-container">
     <h2>Songs Collection List</h2>
 
-    <form method="GET">
+    <form method="POST">
         <label for="search">Search by Title or Artist/BandName:</label>
         <input type="text" id="search" name="search">
         <input type="submit" value="Search">
@@ -102,7 +102,8 @@ if(isset($_SESSION["UID"])) {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     } else {
-        $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+        $searchTerm = isset($_POST['search']) ? $_POST
+['search'] : '';
 
         $queryView = "SELECT * FROM SONG WHERE 
                         Title LIKE '%$searchTerm%' OR
